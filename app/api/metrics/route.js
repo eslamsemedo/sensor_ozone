@@ -17,8 +17,8 @@ export async function POST(request) {
   // Add new reading to history
   latestData.history.push({
     timestamp,
-    steps: body.stepCount,
-    calories: body.caloriesBurned,
+    steps: parseInt(body.stepCount),
+    calories: parseInt(body.caloriesBurned),
   });
 
   // Keep last 12 readings
@@ -27,8 +27,8 @@ export async function POST(request) {
   }
 
   // Update current values
-  latestData.stepCount = body.stepCount;
-  latestData.caloriesBurned = body.caloriesBurned;
+  latestData.stepCount = parseInt(body.stepCount);
+  latestData.caloriesBurned = parseInt(body.caloriesBurned);
 
   return new Response('OK', { status: 200 });
 }
