@@ -3,15 +3,35 @@ import React, { useEffect, useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
 const Dashboard = () => {
-  const [data, setData] = useState(null);
+  // const [data, setData] = useState(null);
+  const [data, setData] = useState({
+    stepCount: 0,
+    caloriesBurned: 0,
+  });
+  // const [data, setData]  = useState();
+  const [review, setReview] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchMetrics() {
       try {
+        // const res = await fetch('/api/metrics');
+        // const json = await res.json();
+
+        // setData(json);
         const res = await fetch('/api/metrics');
         const json = await res.json();
-        setData(json);
+
+        // append the newly‐fetched array onto the end of the existing data
+        // setData(prev => [...prev, ...json]);
+        // if()
+        setData(prev => ({
+          ...prev,
+          stepCount: prev.stepCount + json.stepCount,
+          caloriesBurned: prev.caloriesBurned + json.caloriesBurned,
+        }));
+        setReview(json)
+
       } catch (err) {
         console.error('Failed to load metrics', err);
       } finally {
@@ -50,7 +70,7 @@ const Dashboard = () => {
       <div className="md:col-span-2 rounded-2xl shadow-lg p-4 bg-white dark:bg-gray-800">
         <h2 className="text-xl font-semibold mb-4 text-center">History (Last 1 Hour)</h2>
         <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={data.history}>
+          <LineChart data={review.history}>
             <XAxis dataKey="timestamp" />
             <YAxis />
             <Tooltip />
