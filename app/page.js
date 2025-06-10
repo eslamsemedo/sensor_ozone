@@ -32,6 +32,10 @@ const Dashboard = () => {
         // setData(json);
         const res = await fetch('/api/metrics');
         const json = await res.json();
+        console.log(json)
+        if (json == "empty") {
+          return
+        }
 
         // append the newly‐fetched array onto the end of the existing data
         // setData(prev => [...prev, ...json]);
@@ -74,15 +78,15 @@ const Dashboard = () => {
       {/* Calories Burned */}
       <div className="rounded-2xl shadow-lg p-4 bg-white dark:bg-gray-800">
         <h2 className="text-xl font-semibold mb-2 text-center">Calories Burned</h2>
-        {/* <div className="text-4xl font-bold text-center">{data.caloriesBurned.toFixed(2)}</div> */}
-        <div className="text-4xl font-bold text-center">{caloriesFromSteps(data.stepCount, heightCm, weightKg).toFixed(0)} kcal</div>
+        <div className="text-4xl font-bold text-center">{data.caloriesBurned.toFixed(1)}</div>
+        {/* <div className="text-4xl font-bold text-center">{caloriesFromSteps(data.stepCount, heightCm, weightKg).toFixed(2)} kcal</div> */}
       </div>
 
       {/* History Chart */}
       <div className="md:col-span-2 rounded-2xl shadow-lg p-4 bg-white dark:bg-gray-800">
         <h2 className="text-xl font-semibold mb-4 text-center">History (Last 1 Hour)</h2>
         <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={review.history}>
+          <LineChart data={review?.history}>
             <XAxis dataKey="timestamp" />
             <YAxis />
             <Tooltip />
