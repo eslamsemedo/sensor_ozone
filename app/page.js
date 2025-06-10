@@ -75,7 +75,7 @@ const Dashboard = () => {
       <div className="rounded-2xl shadow-lg p-4 bg-white dark:bg-gray-800">
         <h2 className="text-xl font-semibold mb-2 text-center">Calories Burned</h2>
         {/* <div className="text-4xl font-bold text-center">{data.caloriesBurned.toFixed(2)}</div> */}
-        <div className="text-4xl font-bold text-center">{caloriesFromSteps(data.stepCount, heightCm, weightKg).toFixed(0)} 'kcal'</div>
+        <div className="text-4xl font-bold text-center">{caloriesFromSteps(data.stepCount, heightCm, weightKg).toFixed(0)} kcal</div>
       </div>
 
       {/* History Chart */}
