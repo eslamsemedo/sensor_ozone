@@ -11,6 +11,17 @@ const Dashboard = () => {
   // const [data, setData]  = useState();
   const [review, setReview] = useState(null);
   const [loading, setLoading] = useState(true);
+  function caloriesFromSteps(steps, heightCm, weightKg) {
+    const strideM = (heightCm / 100) * 0.415;        // average stride
+    const distanceKm = (steps * strideM) / 1000;     // steps → km
+    const calories = distanceKm * weightKg * 1.0;   // 1 kcal/kg·km
+    return calories;
+  }
+
+  // usage:
+  const steps = 10000;
+  const heightCm = 170;
+  const weightKg = 70;
 
   useEffect(() => {
     async function fetchMetrics() {
@@ -63,7 +74,8 @@ const Dashboard = () => {
       {/* Calories Burned */}
       <div className="rounded-2xl shadow-lg p-4 bg-white dark:bg-gray-800">
         <h2 className="text-xl font-semibold mb-2 text-center">Calories Burned</h2>
-        <div className="text-4xl font-bold text-center">{data.caloriesBurned.toFixed(2)}</div>
+        {/* <div className="text-4xl font-bold text-center">{data.caloriesBurned.toFixed(2)}</div> */}
+        <div className="text-4xl font-bold text-center">{caloriesFromSteps(data.stepCount, heightCm, weightKg).toFixed(0)} 'kcal'</div>
       </div>
 
       {/* History Chart */}
